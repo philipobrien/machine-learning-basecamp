@@ -1,0 +1,61 @@
+---
+# Playbook for miniconda container
+
+- hosts: all
+  vars:
+    miniconda_home: ~/miniconda
+  tasks:
+    # - name: Download miniconda python distribution
+    #   get_url: 
+    #     url: http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+    #     dest: /tmp/miniconda.sh 
+    #     mode: 0755
+
+    # - name: Execute the miniconda setup script
+    #   shell: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
+    #   notify:
+    #     - remove miniconda setup script
+
+    # - name: Add miniconda to the PATH
+    #   shell: "echo '{{ item }}' >> ~/.bashrc executable=/bin/bash"
+    #   with_items:
+    #   - "export PATH={{ miniconda_home }}/bin:$PATH"
+
+    # - name: Update conda to latest version
+    #   shell: "{{ miniconda_home }}/bin/conda update conda --yes -q executable=/bin/bash"
+     
+
+    - name: download spark
+      become: true
+      become_method: sudo
+      get_url: url=http://mirror.catn.com/pub/apache/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz dest=/opt/
+
+    - name: unzip spark
+      become: true
+      become_method: sudo
+      unarchive: copy=no src=/opt/spark-2.0.0-bin-hadoop2.7.tgz  dest=/opt
+      environment:
+        SPARK_HOME: /opt/spark-2.0.0-bin-hadoop2.7
+
+    - name: update apt cache
+      become: true
+      become_method: sudo
+      apt: update_cache=yes
+
+    - name: install git
+      become: true
+      become_method: sudo
+      apt:  name=git state=present
+
+    - name: install java
+      become: true
+      become_method: sudo
+      apt: name=openjdk-7-jre state=present
+      environment:
+        JAVA_HOME: /usr/lib/jvm/java-7-openjdk    
+
+    - name: config Jupyter
+      command: cp /vagrant/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+  # handlers:
+  #   - name: remove miniconda setup script
+  #     file: name=/tmp/miniconda.sh state=absent
