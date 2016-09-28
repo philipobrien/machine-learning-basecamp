@@ -54,6 +54,44 @@
       environment:
         JAVA_HOME: /usr/lib/jvm/java-7-openjdk    
 
+    - name: clone torch
+      git:
+        repo: https://github.com/torch/distro.git
+        accept_hostkey: true
+        dest: ~/torch
+        recursive: yes
+
+    - name: install torch
+      shell: bash install-deps; ./install.sh
+      args:
+        chdir: ~/torch
+
+    - name: install libzmq3-dev
+      become: true
+      become_method: sudo
+      apt:  name=libzmq3-dev state=present
+
+    - name: install libssl-dev
+      become: true
+      become_method: sudo
+      apt:  name=libssl-dev state=present
+
+    - name: install python-zmq
+      become: true
+      become_method: sudo
+      apt:  name=python-zmq state=present
+
+    - name: clone iTorch
+      git:
+        repo: https://github.com/facebook/iTorch.git
+        accept_hostkey: true
+        dest: ~/iTorch
+
+    - name: install iTorch
+      shell: luarocks make
+      args:
+        chdir: ~/iTorch
+
     - name: config Jupyter
       command: cp /vagrant/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
   # handlers:
