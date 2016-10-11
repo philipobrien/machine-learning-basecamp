@@ -37,6 +37,11 @@
       environment:
         SPARK_HOME: /opt/spark-2.0.0-bin-hadoop2.7
 
+    - name: set SPARK_HOME
+      shell: "echo '{{ item }}' >> ~/.bashrc executable=/bin/bash"
+      with_items:
+      - "export SPARK_HOME=/opt/spark-2.0.0-bin-hadoop2.7"
+
     - name: update apt cache
       become: true
       become_method: sudo
