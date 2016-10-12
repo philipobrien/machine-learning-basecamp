@@ -17,3 +17,23 @@ It is very much a work-in-progress. I am currently working through Kevin Murphy'
 * State space models
 * Clustering
 * Deep learning
+
+
+## Installation
+```
+$ git clone git@github.com:philipobrien/machine-learning-basecamp.git
+$ cd machine-learning-basecamp
+$ vagrant up
+```
+
+Once the machine is ready (it can take quite a while)
+```
+$ vagrant ssh
+$ cd /vagrant
+$ make basecamp
+$ source activate basecamp
+$ cd /vagrant/notebooks
+$ jupyter notebook --ip=0.0.0.0 --no-browser
+```
+
+In your browser navigate to `localhost:8888` and have fun!

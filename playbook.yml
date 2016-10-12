@@ -1,30 +1,29 @@
 ---
-# Playbook for miniconda container
+# Playbook machine-learning-basecamp
 
 - hosts: all
   vars:
     miniconda_home: ~/miniconda
   tasks:
-    # - name: Download miniconda python distribution
-    #   get_url: 
-    #     url: http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-    #     dest: /tmp/miniconda.sh 
-    #     mode: 0755
+    - name: Download miniconda python distribution
+      get_url: 
+        url: http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+        dest: /tmp/miniconda.sh 
+        mode: 0755
 
-    # - name: Execute the miniconda setup script
-    #   shell: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
-    #   notify:
-    #     - remove miniconda setup script
+    - name: Execute the miniconda setup script
+      shell: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
+      notify:
+        - remove miniconda setup script
 
-    # - name: Add miniconda to the PATH
-    #   shell: "echo '{{ item }}' >> ~/.bashrc executable=/bin/bash"
-    #   with_items:
-    #   - "export PATH={{ miniconda_home }}/bin:$PATH"
+    - name: Add miniconda to the PATH
+      shell: "echo '{{ item }}' >> ~/.bashrc executable=/bin/bash"
+      with_items:
+      - "export PATH={{ miniconda_home }}/bin:$PATH"
 
-    # - name: Update conda to latest version
-    #   shell: "{{ miniconda_home }}/bin/conda update conda --yes -q executable=/bin/bash"
+    - name: Update conda to latest version
+      shell: "{{ miniconda_home }}/bin/conda update conda --yes -q executable=/bin/bash"
      
-
     - name: download spark
       become: true
       become_method: sudo
@@ -99,6 +98,7 @@
 
     - name: config Jupyter
       command: cp /vagrant/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-  # handlers:
-  #   - name: remove miniconda setup script
-  #     file: name=/tmp/miniconda.sh state=absent
+  
+  handlers:
+    - name: remove miniconda setup script
+      file: name=/tmp/miniconda.sh state=absent
