@@ -27,19 +27,19 @@
     - name: download spark
       become: true
       become_method: sudo
-      get_url: url=http://mirror.catn.com/pub/apache/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz dest=/opt/
+      get_url: url=http://d3kbcqa49mib13.cloudfront.net/spark-2.0.2-bin-hadoop2.7.tgz dest=/opt/
 
     - name: unzip spark
       become: true
       become_method: sudo
-      unarchive: copy=no src=/opt/spark-2.0.0-bin-hadoop2.7.tgz  dest=/opt
+      unarchive: copy=no src=/opt/spark-2.0.2-bin-hadoop2.7.tgz  dest=/opt
       environment:
-        SPARK_HOME: /opt/spark-2.0.0-bin-hadoop2.7
+        SPARK_HOME: /opt/spark-2.0.2-bin-hadoop2.7
 
     - name: set SPARK_HOME
       shell: "echo '{{ item }}' >> ~/.bashrc executable=/bin/bash"
       with_items:
-      - "export SPARK_HOME=/opt/spark-2.0.0-bin-hadoop2.7"
+      - "export SPARK_HOME=/opt/spark-2.0.2-bin-hadoop2.7"
 
     - name: update apt cache
       become: true
@@ -91,13 +91,13 @@
         accept_hostkey: true
         dest: ~/iTorch
 
-    - name: install iTorch
-      shell: luarocks make
-      args:
-        chdir: ~/iTorch
+    # - name: install iTorch
+    #   shell: luarocks make
+    #   args:
+    #     chdir: ~/iTorch
 
-    - name: config Jupyter
-      command: cp /vagrant/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+    # - name: config Jupyter
+    #   command: cp /vagrant/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
   
   handlers:
     - name: remove miniconda setup script

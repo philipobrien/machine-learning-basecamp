@@ -95,6 +95,7 @@ dependencies:
   - backports-abc==0.4
   - backports.shutil-get-terminal-size==1.0.0
   - backports.ssl-match-hostname==3.4.0.2
+  - findspark==1.1.0
   - ipython-genutils==0.1.0
   - jupyter-client==4.4.0
   - jupyter-console==5.0.0
