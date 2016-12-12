@@ -39,3 +39,8 @@ $ jupyter notebook --ip=0.0.0.0 --no-browser
 ```
 
 In your browser navigate to `localhost:8888` and have fun!
+
+Currently there are only three demos
+* an iTorch demo which just verifies iTorch is working by loading the default image of [Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper)
+* a Spark demo which executes a basic [logistic regression](https://en.wikipedia.org/wiki/Logistic_regression) example
+* a TensorFlow demo which runs an [MNIST](http://yann.lecun.com/exdb/mnist/) example
