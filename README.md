@@ -1,4 +1,4 @@
-![](http://imgur.com/a/PEsTO)
+![](http://i.imgur.com/yUImhCc.jpg)
 This project seeks to streamline the process of installing and experimenting with the current crop of machine learning frameworks/toolkits, namely
 
 * [TensorFlow](https://www.tensorflow.org/)
