@@ -1,5 +1,4 @@
-![](http://i.imgur.com/yUImhCcm.jpg)
-
+# Machine Learning Basecamp
 This project seeks to streamline the process of installing and experimenting with the current crop of machine learning frameworks/toolkits, namely
 
 * [TensorFlow](https://www.tensorflow.org/)
